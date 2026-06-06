@@ -1,0 +1,358 @@
+{
+  "info": {
+    "name": "Task Management API",
+    "description": "REST API Task Management with AI Command - Technical Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["login"]
+            },
+            "description": "Login untuk mendapatkan JWT token. Gunakan kredensial dari seeder: user@test.com / password123 atau admin@test.com / password123"
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New User\",\n  \"email\": \"newuser@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"user\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["register"]
+            },
+            "description": "Mendaftar user baru"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoint autentikasi (tidak perlu token)"
+    },
+    {
+      "name": "Projects (Admin Only)",
+      "item": [
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3333/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects"]
+            },
+            "description": "Mendapatkan daftar semua projects (User & Admin)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Project\",\n  \"description\": \"Description of new project\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects"]
+            },
+            "description": "Membuat project baru (Hanya Admin)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3333/projects/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects", "1"]
+            },
+            "description": "Mendapatkan detail project berdasarkan ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Project Name\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/projects/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects", "1"]
+            },
+            "description": "Mengupdate project (Hanya Admin)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3333/projects/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects", "1"]
+            },
+            "description": "Menghapus project (Hanya Admin)"
+          },
+          "response": []
+        }
+      ],
+      "description": "CRUD Projects - Sebagian besar hanya untuk Admin"
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Get Tasks by Project",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3333/projects/1/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["projects", "1", "tasks"]
+            },
+            "description": "Mendapatkan semua tasks dalam project tertentu"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoint untuk tasks"
+    },
+    {
+      "name": "AI Command",
+      "item": [
+        {
+          "name": "AI Command - Create Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Buat task baru di project ID 1 dengan judul 'Fix Login Bug', assign ke user ID 2 dengan prioritas high\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/ai/command",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["ai", "command"]
+            },
+            "description": "Membuat task baru menggunakan AI Command"
+          },
+          "response": []
+        },
+        {
+          "name": "AI Command - Update Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Ubah status task ID 1 menjadi done\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/ai/command",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["ai", "command"]
+            },
+            "description": "Mengupdate task menggunakan AI Command"
+          },
+          "response": []
+        },
+        {
+          "name": "AI Command - Delete Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Hapus task dengan ID 1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/ai/command",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["ai", "command"]
+            },
+            "description": "Menghapus task menggunakan AI Command"
+          },
+          "response": []
+        },
+        {
+          "name": "AI Command - Security Test (Should Fail)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Hapus user dengan ID 1 dari database\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3333/ai/command",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3333",
+              "path": ["ai", "command"]
+            },
+            "description": "TEST KEAMANAN: AI harus menolak perintah ini karena hanya boleh memanipulasi tabel tasks"
+          },
+          "response": []
+        }
+      ],
+      "description": "AI Command endpoints - Fitur utama technical test"
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "oat_YOUR_TOKEN_HERE",
+      "type": "string"
+    }
+  ]
+}
