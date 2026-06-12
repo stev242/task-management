@@ -1,24 +1,31 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 
-// Public Routes
-router.post('/register', '#controllers/auth_controller.register')
-router.post('/login', '#controllers/auth_controller.login')
+const AuthController = () => import('#controllers/auth_controller')
+const ProjectsController = () => import('#controllers/projects_controller')
+const TasksController = () => import('#controllers/tasks_controller')
+const AiCommandsController = () => import('#controllers/ai_commands_controller')
 
-// Admin Only Routes
-router.group(() => {
-  router.post('/projects', '#controllers/projects_controller.store')
-  router.put('/projects/:id', '#controllers/projects_controller.update')
-  router.delete('/projects/:id', '#controllers/projects_controller.destroy')
-})
-  .use(middleware.auth())
-  .use(middleware.role(['admin'])) // ✅ CARA BENAR V6
+// Public routes
+router.post('/register', [AuthController, 'register'])
+router.post('/login', [AuthController, 'login'])
 
-// User & Admin Routes
+// Protected routes
 router.group(() => {
-  router.get('/projects', '#controllers/projects_controller.index')
-  router.get('/projects/:id', '#controllers/projects_controller.show')
-  router.get('/projects/:id/tasks', '#controllers/tasks_controller.index')
-  router.post('/ai/command', '#controllers/ai_commands_controller.handle')
-})
-  .use(middleware.auth())
+  
+  // Admin ONLY routes
+  router.group(() => {
+    router.post('/projects', [ProjectsController, 'store'])
+    router.put('/projects/:id', [ProjectsController, 'update'])
+    router.delete('/projects/:id', [ProjectsController, 'destroy'])
+  }).use(middleware.role(['admin']))  // <-- PERBAIKAN: ['admin'] bukan 'admin'
+  
+  // User & Admin routes
+  router.get('/projects', [ProjectsController, 'index'])
+  router.get('/projects/:id/tasks', [TasksController, 'index'])
+  
+  // AI Command routes
+  router.post('/ai/command', [AiCommandsController, 'command'])
+  router.post('/ai/command/stream', [AiCommandsController, 'commandStream'])
+  
+}).use(middleware.auth())

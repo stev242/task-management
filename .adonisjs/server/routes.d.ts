@@ -10,15 +10,16 @@ export type ScannedRoutes = {
     'projects.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'projects.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'projects.index': { paramsTuple?: []; params?: {} }
-    'projects.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.index': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'ai_commands': { paramsTuple?: []; params?: {} }
+    'ai_commands.command': { paramsTuple?: []; params?: {} }
+    'ai_commands.command_stream': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'auth.register': { paramsTuple?: []; params?: {} }
     'auth.login': { paramsTuple?: []; params?: {} }
     'projects.store': { paramsTuple?: []; params?: {} }
-    'ai_commands': { paramsTuple?: []; params?: {} }
+    'ai_commands.command': { paramsTuple?: []; params?: {} }
+    'ai_commands.command_stream': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'projects.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -28,12 +29,10 @@ export type ScannedRoutes = {
   }
   GET: {
     'projects.index': { paramsTuple?: []; params?: {} }
-    'projects.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.index': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'projects.index': { paramsTuple?: []; params?: {} }
-    'projects.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.index': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }

@@ -15,8 +15,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['register']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['register']>>>
     }
   }
   'auth.login': {
@@ -27,8 +27,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>>
     }
   }
   'projects.store': {
@@ -39,8 +39,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['store']>>>
     }
   }
   'projects.update': {
@@ -51,8 +51,8 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['update']>>>
     }
   }
   'projects.destroy': {
@@ -63,8 +63,8 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['destroy']>>>
     }
   }
   'projects.index': {
@@ -75,20 +75,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
-    }
-  }
-  'projects.show': {
-    methods: ["GET","HEAD"]
-    pattern: '/projects/:id'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/projects_controller').default['index']>>>
     }
   }
   'tasks.index': {
@@ -99,11 +87,11 @@ export interface Registry {
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/tasks_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/tasks_controller').default['index']>>>
     }
   }
-  'ai_commands': {
+  'ai_commands.command': {
     methods: ["POST"]
     pattern: '/ai/command'
     types: {
@@ -111,8 +99,20 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ai_commands_controller').default['command']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ai_commands_controller').default['command']>>>
+    }
+  }
+  'ai_commands.command_stream': {
+    methods: ["POST"]
+    pattern: '/ai/command/stream'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ai_commands_controller').default['commandStream']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ai_commands_controller').default['commandStream']>>>
     }
   }
 }

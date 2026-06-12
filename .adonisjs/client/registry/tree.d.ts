@@ -11,10 +11,12 @@ export interface ApiDefinition {
     update: typeof routes['projects.update']
     destroy: typeof routes['projects.destroy']
     index: typeof routes['projects.index']
-    show: typeof routes['projects.show']
   }
   tasks: {
     index: typeof routes['tasks.index']
   }
-  aiCommands: typeof routes['ai_commands']
+  aiCommands: {
+    command: typeof routes['ai_commands.command']
+    commandStream: typeof routes['ai_commands.command_stream']
+  }
 }

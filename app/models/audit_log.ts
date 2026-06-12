@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import User from '#models/user'
+import User from './user.js'
 
 export default class AuditLog extends BaseModel {
   @column({ isPrimary: true })
@@ -13,7 +13,6 @@ export default class AuditLog extends BaseModel {
   @column()
   declare action: string
 
-  // ✅ TIPE STRING - karena kita akan simpan hasil JSON.stringify()
   @column()
   declare requestPayload: string
 
@@ -29,6 +28,6 @@ export default class AuditLog extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
-  @belongsTo(() => User, { foreignKey: 'userId' })
+  @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 }
